@@ -27,7 +27,7 @@ import io
 import locale
 import os
 import sys
-from urlscan import urlchoose, urlscan
+from urlscan import urlscan
 try:
     from email.Parser import Parser as parser
 except ImportError:
@@ -41,12 +41,6 @@ def parse_arguments():
 
     """
     arg_parse = argparse.ArgumentParser(description="Parse and display URLs")
-    arg_parse.add_argument('--compact', '-c',
-                           action='store_true', default=False,
-                           help="Don't display the context of each URL.")
-    arg_parse.add_argument('--no-browser', '-n', dest="nobrowser",
-                           action='store_true', default=False,
-                           help="Pipe URLs to stdout")
     arg_parse.add_argument('message', nargs='?', default=sys.stdin,
                            help="Filename of the message to parse")
     args = arg_parse.parse_args()
@@ -125,15 +119,23 @@ def _msg_set_charset(msg, encoding):
         for part in msg.get_payload():
             _msg_set_charset(part, encoding)
 
+def process_urls(extractedurls):
+    """Process the 'extractedurls' and ready them for output
+    Args: extractedurls
+    Returns: urls
+    """
+    urls = []
+    for group in extractedurls:
+        lasturl = None
+        for chunks in group:
+            for chunk in chunks:
+                if chunk.url and chunk.url != lasturl:
+                    urls.append(chunk.url)
+                    lasturl = chunk.url
+    return urls
 
 if __name__ == "__main__":
     args = parse_arguments()
     msg = process_input(args.message)
-    if args.nobrowser is False:
-        ui = urlchoose.URLChooser(urlscan.msgurls(msg),
-                                  compact_mode=args.compact)
-        ui.main()
-    else:
-        out = urlchoose.process_urls(urlscan.msgurls(msg),
-                                     nobrowser=True)
-        print("\n".join(out))
+    out = process_urls(urlscan.msgurls(msg))
+    print("\n".join(out))
