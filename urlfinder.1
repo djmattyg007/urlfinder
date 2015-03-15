@@ -1,0 +1,26 @@
+.TH URLFINDER 1 "March 15, 2015"
+
+.SH NAME
+urlfinder \- extract URLs from a chunk of text
+.SH SYNOPSIS
+\fBurlfinder\fR <
+.I message
+
+\fBurlfinder\fR
+.I message-filename
+
+.SH DESCRIPTION
+\fBurlfinder\fR accepts a block of text on standard input, and outputs
+a list of URLs parsed from that text, one URL per line.
+
+\fBurlfinder\fR is similar to \fBurlview\fR(1), and \fBurlscan\fR(1), but
+more closely follows the UNIX philosophy in that it leaves the display
+and utility of URLs up to other programs.
+
+.SH SEE ALSO
+\fI/usr/share/doc/urlfinder/README\fR,
+\fBurlview\fR(1),
+\fBurlscan\fR(1)
+
+.SH AUTHOR
+This manual page was written by Matthew Gamble <git@matthewgamble.net>

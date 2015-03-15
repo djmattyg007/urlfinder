@@ -27,18 +27,16 @@ import io
 import locale
 import os
 import sys
-from urlscan import urlscan
+from urlfinder import urlfinder
 try:
     from email.Parser import Parser as parser
 except ImportError:
     from email.parser import Parser as parser
 
-
 def parse_arguments():
     """Parse command line options.
 
     Returns: args
-
     """
     arg_parse = argparse.ArgumentParser(description="Parse and display URLs")
     arg_parse.add_argument('message', nargs='?', default=sys.stdin,
@@ -46,11 +44,9 @@ def parse_arguments():
     args = arg_parse.parse_args()
     return args
 
-
 def close_stdin():
     """This section closes out sys.stdin if necessary so as not to block curses
     keyboard inputs
-
     """
     if not os.isatty(0):
         fd = os.open('/dev/tty', os.O_RDONLY)
@@ -61,15 +57,13 @@ def close_stdin():
             os.dup2(fd, 0)
             os.close(fd)
 
-
 def process_input(fn):
     """Return the parsed text of stdin or the message. Accounts for possible
     file encoding differences.
 
-        Args: fn - filename or sys.stdin
-        Returns: msg - parsed (email parser) text of the message with the
-            correct encoding set
-
+    Args: fn - filename or sys.stdin
+    Returns: msg - parsed (email parser) text of the message with the
+        correct encoding set
     """
     enc_list = ['UTF-8', 'LATIN-1', 'iso8859-1', 'iso8859-2',
                 'UTF-16', 'CP720', 'CP437']
@@ -107,10 +101,8 @@ def process_input(fn):
     _msg_set_charset(msg, c)
     return msg
 
-
 def _msg_set_charset(msg, encoding):
     """Recursive function to set the charset of nested message parts.
-
     """
     encoding = msg.get_content_charset() or encoding
     try:
@@ -121,6 +113,7 @@ def _msg_set_charset(msg, encoding):
 
 def process_urls(extractedurls):
     """Process the 'extractedurls' and ready them for output
+
     Args: extractedurls
     Returns: urls
     """
@@ -137,5 +130,5 @@ def process_urls(extractedurls):
 if __name__ == "__main__":
     args = parse_arguments()
     msg = process_input(args.message)
-    out = process_urls(urlscan.msgurls(msg))
+    out = process_urls(urlfinder.msgurls(msg))
     print("\n".join(out))

@@ -415,9 +415,8 @@ def msgurls(msg, urlidx=1):
 def decode_bytes(b, enc='utf-8'):
     """Given a string or bytes input, return a string.
 
-        Args: b - bytes or string
-              enc - encoding to use for decoding the byte string.
-
+    Args: b - bytes or string
+          enc - encoding to use for decoding the byte string.
     """
     try:
         s = b.decode(enc)

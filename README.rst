@@ -1,5 +1,5 @@
-Urlscan
-=======
+urlfinder
+=========
 
 Contributors
 ------------
@@ -15,21 +15,21 @@ Matthew Gamble <git@matthewgamble.net> (Overseer of conversion to operate only o
 Purpose and Requirements
 ------------------------
 
-Urlscan is a simple program that extracts URLs from chunks of text and sends them to stdout.
+urlfinder is a simple program that extracts URLs from chunks of text and sends them to stdout.
 
 Requires: Python 2.6+ (including Python 3.x)
 
 Installation and setup
 ----------------------
 
-To install urlscan, install from your distribution repositories, from Pypi, install the `Archlinux Package`_ , or install from source using setup.py.
+To install urlfinder, install from your distribution repositories, from PyPI, install the `Arch Linux Package`_, or install from source using setup.py.
 
 Usage
-------------------
+-----
 
 ::
 
-    urlscan <file>
+    urlfinder <file>
 
 Known bugs and limitations
 --------------------------
@@ -40,4 +40,4 @@ Known bugs and limitations
 
 - multipart/alternative sections are handled by descending into all the sub-parts, rather than just picking one, which may lead to URLs and context appearing twice.
 
-.. _Archlinux Package: https://aur.archlinux.org/packages/urlscan-git/
+.. _Arch Linux Package: https://aur.archlinux.org/packages/urlfinder/
